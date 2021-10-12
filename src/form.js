@@ -10,15 +10,12 @@ const Form = () => {
         fileDispatch,
         handleFileChange
     } = useFileChange();
-    // const [s3FileUrl, setS3FileUrl] = useState('');
 
     const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log('HERE');
         try {
             if(fileType && fileContents) {
                 const filePath = await uploadToS3({fileType, fileContents});
-                // setS3FileUrl(`${S3_BUCKET_URL}/${filePath}`);
                 console.log('filePath is', filePath);
                 fileDispatch({type: 'RESET_FILE_STATE'});
             }
@@ -28,9 +25,7 @@ const Form = () => {
     };
     return (
         <>
-            <h1>
-                Upload files using the input below:
-            </h1>
+            <h1>Upload to S3</h1>
             {fileError && <h1>{fileError}</h1>}
             <form onSubmit={handleSubmit}>
                 <p>
